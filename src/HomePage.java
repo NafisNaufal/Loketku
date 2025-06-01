@@ -168,6 +168,7 @@ public class HomePage extends javax.swing.JFrame {
         DaftarButton1 = new javax.swing.JButton();
         MasukButton1 = new javax.swing.JButton();
         LoketkuLabel1 = new javax.swing.JLabel();
+        AddEventButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ListEventPanel1 = new javax.swing.JPanel();
@@ -193,6 +194,9 @@ public class HomePage extends javax.swing.JFrame {
         LoketkuLabel1.setForeground(new java.awt.Color(255, 255, 255));
         LoketkuLabel1.setText("Loketku");
 
+        AddEventButton1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        AddEventButton1.setText("Add Event");
+
         javax.swing.GroupLayout LayarAtasPanel1Layout = new javax.swing.GroupLayout(LayarAtasPanel1);
         LayarAtasPanel1.setLayout(LayarAtasPanel1Layout);
         LayarAtasPanel1Layout.setHorizontalGroup(
@@ -200,7 +204,9 @@ public class HomePage extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LayarAtasPanel1Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(LoketkuLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 873, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 758, Short.MAX_VALUE)
+                .addComponent(AddEventButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(DaftarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(MasukButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -213,8 +219,9 @@ public class HomePage extends javax.swing.JFrame {
                 .addGroup(LayarAtasPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(DaftarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(MasukButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LoketkuLabel1))
-                .addContainerGap(41, Short.MAX_VALUE))
+                    .addComponent(LoketkuLabel1)
+                    .addComponent(AddEventButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
@@ -303,6 +310,7 @@ public class HomePage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AddEventButton1;
     private javax.swing.JButton DaftarButton1;
     private javax.swing.JLabel GambarEvent1;
     private javax.swing.JLabel JudulLabel2;

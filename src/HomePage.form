@@ -69,7 +69,9 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   <Component id="LoketkuLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="873" max="32767" attributes="0"/>
+                  <EmptySpace pref="758" max="32767" attributes="0"/>
+                  <Component id="AddEventButton1" min="-2" pref="97" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="DaftarButton1" min="-2" pref="78" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="MasukButton1" min="-2" pref="84" max="-2" attributes="0"/>
@@ -85,8 +87,9 @@
                       <Component id="DaftarButton1" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="MasukButton1" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="LoketkuLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="AddEventButton1" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="41" max="32767" attributes="0"/>
+                  <EmptySpace pref="40" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -123,6 +126,14 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Loketku"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="AddEventButton1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="SansSerif" size="14" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Add Event"/>
           </Properties>
         </Component>
       </SubComponents>
