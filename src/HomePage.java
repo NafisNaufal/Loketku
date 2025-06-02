@@ -204,6 +204,7 @@ public class HomePage extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(1200, 800));
 
         LayarAtasPanel1.setBackground(new java.awt.Color(0, 87, 166));
+        LayarAtasPanel1.setPreferredSize(new java.awt.Dimension(1200, 120));
 
         DaftarButton1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         DaftarButton1.setText("Sign up");
