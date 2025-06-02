@@ -16,6 +16,17 @@ public class EventDetails extends javax.swing.JFrame {
      */
     public EventDetails() {
         initComponents();
+        setLocationRelativeTo(null);
+    }
+    
+    public EventDetails(Event event){
+        initComponents();
+         setLocationRelativeTo(null);
+         
+         eventTitle.setText(event.getTitle());
+         jLabel2.setText(event.getDate());
+         
+         
     }
 
     /**
