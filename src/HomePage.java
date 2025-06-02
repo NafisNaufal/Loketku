@@ -33,6 +33,22 @@ class Event {
         this.price = price;
         this.imagePath = imagePath;
     }
+    
+    public String getTitle(){
+        return title;
+    }
+    
+    public String getDate(){
+        return date;
+    }
+    
+    public String getPrice(){
+        return price;
+    }
+    
+    public String getImagePath(){
+        return imagePath;
+    }
 }
 
 class WrapLayout extends FlowLayout {
@@ -150,6 +166,7 @@ public class HomePage extends javax.swing.JFrame {
         eventPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         eventPanel.addMouseListener(new java.awt.event.MouseAdapter(){
             public void mouseClicked(java.awt.event.MouseEvent evt){
+                new EventDetails(event).setVisible(true);
             }
         });
 
