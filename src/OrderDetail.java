@@ -15,6 +15,17 @@ public class OrderDetail extends javax.swing.JFrame {
     public OrderDetail() {
         initComponents();
         setLocationRelativeTo(null);
+         BayarTiketButton.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            BayarTiketButtonActionPerformed(evt);
+        }
+    });
+    }
+    
+    private void BayarTiketButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        Ticket ticket = new Ticket();
+        ticket.setVisible(true);
+        this.dispose(); // tutup EventDetails
     }
 
     /**
