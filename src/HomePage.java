@@ -146,6 +146,12 @@ public class HomePage extends javax.swing.JFrame {
         eventPanel.add(judul);
         eventPanel.add(tanggal);
         eventPanel.add(harga);
+        
+        eventPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        eventPanel.addMouseListener(new java.awt.event.MouseAdapter(){
+            public void mouseClicked(java.awt.event.MouseEvent evt){
+            }
+        });
 
         ListEventPanel1.add(eventPanel);
     }
