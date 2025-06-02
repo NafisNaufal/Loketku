@@ -14,6 +14,7 @@ public class OrderDetail extends javax.swing.JFrame {
      */
     public OrderDetail() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -58,9 +59,9 @@ public class OrderDetail extends javax.swing.JFrame {
         HargaBiayaLayanan = new javax.swing.JLabel();
         TotalLayanan = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        BayarTiketButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1200, 800));
 
         jPanel1.setBackground(new java.awt.Color(0, 87, 166));
         jPanel1.setPreferredSize(new java.awt.Dimension(1200, 200));
@@ -248,6 +249,11 @@ public class OrderDetail extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel1.setText("Rp361.250");
 
+        BayarTiketButton.setBackground(new java.awt.Color(0, 87, 166));
+        BayarTiketButton.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        BayarTiketButton.setForeground(new java.awt.Color(255, 255, 255));
+        BayarTiketButton.setText("Bayar Tiket");
+
         javax.swing.GroupLayout PanelHargaLayout = new javax.swing.GroupLayout(PanelHarga);
         PanelHarga.setLayout(PanelHargaLayout);
         PanelHargaLayout.setHorizontalGroup(
@@ -268,11 +274,15 @@ public class OrderDetail extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(HargaBiayaLayanan)
                         .addGap(106, 106, 106))
-                    .addGroup(PanelHargaLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelHargaLayout.createSequentialGroup()
                         .addComponent(TotalLayanan)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addGap(31, 31, 31))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelHargaLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BayarTiketButton)
+                .addGap(18, 18, 18))
         );
         PanelHargaLayout.setVerticalGroup(
             PanelHargaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -291,7 +301,9 @@ public class OrderDetail extends javax.swing.JFrame {
                 .addGroup(PanelHargaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TotalLayanan)
                     .addComponent(jLabel1))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(BayarTiketButton)
+                .addGap(16, 16, 16))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -399,6 +411,7 @@ public class OrderDetail extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BayarTiketButton;
     private javax.swing.JLabel BiayaLayanan;
     private javax.swing.JLabel DetailHarga;
     private javax.swing.JLabel DetailPesanan;

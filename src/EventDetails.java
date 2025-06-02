@@ -17,6 +17,19 @@ public class EventDetails extends javax.swing.JFrame {
     public EventDetails() {
         initComponents();
         setLocationRelativeTo(null);
+        
+        BeliTiketButton.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            BeliTiketButtonActionPerformed(evt);
+        }
+    });
+        
+    }
+    
+    private void BeliTiketButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        OrderDetail orderDetail = new OrderDetail();
+        orderDetail.setVisible(true);
+        this.dispose(); // tutup EventDetails
     }
     
     public EventDetails(Event event){
@@ -64,9 +77,9 @@ public class EventDetails extends javax.swing.JFrame {
         vipNumber = new javax.swing.JLabel();
         earlyBirdNumber = new javax.swing.JLabel();
         standardNumber = new javax.swing.JLabel();
+        BeliTiketButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1200, 800));
 
         MainPanel.setPreferredSize(new java.awt.Dimension(1200, 800));
 
@@ -123,7 +136,7 @@ public class EventDetails extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4))
-                        .addGap(0, 166, Short.MAX_VALUE)))
+                        .addGap(0, 183, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -305,6 +318,11 @@ public class EventDetails extends javax.swing.JFrame {
         standardNumber.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         standardNumber.setText("0");
 
+        BeliTiketButton.setBackground(new java.awt.Color(0, 87, 166));
+        BeliTiketButton.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        BeliTiketButton.setForeground(new java.awt.Color(255, 255, 255));
+        BeliTiketButton.setText("Beli Tiket");
+
         javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
         MainPanel.setLayout(MainPanelLayout);
         MainPanelLayout.setHorizontalGroup(
@@ -321,24 +339,36 @@ public class EventDetails extends javax.swing.JFrame {
                     .addComponent(vipTicketPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(vipNumber)
-                    .addComponent(earlyBirdNumber)
-                    .addComponent(standardNumber))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(MainPanelLayout.createSequentialGroup()
+                        .addComponent(vipNumber)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(BeliTiketButton)
+                        .addGap(376, 376, 376))
+                    .addGroup(MainPanelLayout.createSequentialGroup()
+                        .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(standardNumber)
+                            .addComponent(earlyBirdNumber))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         MainPanelLayout.setVerticalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MainPanelLayout.createSequentialGroup()
-                .addComponent(topPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(eventPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(MainPanelLayout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(vipTicketPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(MainPanelLayout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(vipNumber)))
+                        .addComponent(topPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(eventPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(MainPanelLayout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(vipTicketPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(MainPanelLayout.createSequentialGroup()
+                                .addGap(44, 44, 44)
+                                .addComponent(vipNumber))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(BeliTiketButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)))
                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(MainPanelLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -350,11 +380,11 @@ public class EventDetails extends javax.swing.JFrame {
                     .addGroup(MainPanelLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(standardTicketPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(37, Short.MAX_VALUE))
+                        .addContainerGap(34, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(standardNumber)
-                        .addGap(70, 70, 70))))
+                        .addGap(78, 78, 78))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -424,6 +454,7 @@ public class EventDetails extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BeliTiketButton;
     private javax.swing.JPanel MainPanel;
     private javax.swing.JLabel addEarlyBird;
     private javax.swing.JLabel addStandard;
@@ -434,10 +465,6 @@ public class EventDetails extends javax.swing.JFrame {
     private javax.swing.JPanel eventPanel;
     private javax.swing.JLabel eventTitle;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -448,16 +475,11 @@ public class EventDetails extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel standardNumber;
     private javax.swing.JPanel standardTicketPanel;
     private javax.swing.JPanel topPanel;
     private javax.swing.JLabel vipNumber;
     private javax.swing.JPanel vipTicketPanel;
-    private javax.swing.JPanel vipTicketPanel1;
-    private javax.swing.JPanel vipTicketPanel2;
-    private javax.swing.JPanel vipTicketPanel3;
     // End of variables declaration//GEN-END:variables
 }
