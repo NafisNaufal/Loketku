@@ -1,3 +1,11 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -8,7 +16,12 @@
  * @author joshu
  */
 public class OrderDetail extends javax.swing.JFrame {
-
+    private int orderId;
+    private int userId;
+    private double totalAmount;
+    private Date orderDate;
+    private String paymentStatus;
+    private String paymentMethod;
     /**
      * Creates new form OrderDetail
      */
@@ -20,6 +33,55 @@ public class OrderDetail extends javax.swing.JFrame {
             BayarTiketButtonActionPerformed(evt);
         }
     });
+    }
+    
+    public int getOrderId() { 
+        return orderId; 
+    }
+    public int getUserId() { 
+        return userId; 
+    }
+    public double getTotalAmount() { 
+        return totalAmount; 
+    }
+    public Date getOrderDate() { 
+        return orderDate; 
+    }
+    public String getPaymentStatus() { 
+        return paymentStatus; 
+    }
+    public String getPaymentMethod() { 
+        return paymentMethod; 
+    }
+    
+       public static OrderDetail getOrderFromDatabase(int orderId) {
+        String url = "jdbc:sqlserver://localhost:1433;databaseName=Loketku;encrypt=true;trustServerCertificate=true";
+        String user = "sa"; // Ganti sesuai config
+        String password = "Purba_123"; // Ganti sesuai config
+
+        OrderDetail detail = new OrderDetail();
+
+        try (Connection conn = DriverManager.getConnection(url, user, password)) {
+            String query = "SELECT * FROM ORDER_TABLE WHERE order_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, orderId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                detail.orderId = rs.getInt("order_id");
+                detail.userId = rs.getInt("id_user");
+                detail.totalAmount = rs.getDouble("total_amount");
+                detail.orderDate = rs.getTimestamp("order_date");
+                detail.paymentStatus = rs.getString("payment_status");
+                detail.paymentMethod = rs.getString("payment_method");
+                return detail;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
     
     private void BayarTiketButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,6 +135,8 @@ public class OrderDetail extends javax.swing.JFrame {
         BayarTiketButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         jPanel1.setBackground(new java.awt.Color(0, 87, 166));
         jPanel1.setPreferredSize(new java.awt.Dimension(1200, 200));
