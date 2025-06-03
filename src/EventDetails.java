@@ -8,12 +8,63 @@
  * @author nafis
  */
 public class EventDetails extends javax.swing.JFrame {
-
+    int standardCounter = 0;
+    int vipCounter = 0;
+    int earlyBirdCounter = 0;
+    
     /**
      * Creates new form EventDetails
      */
     public EventDetails() {
         initComponents();
+        setLocationRelativeTo(null);
+        
+        // Initialize subtotal
+        updateSubtotal();
+    }
+    
+    private void BeliTiketButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        // Check if at least one ticket is selected
+        if (vipCounter == 0 && earlyBirdCounter == 0 && standardCounter == 0) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "Please select at least one ticket before proceeding!", 
+                "No Tickets Selected", 
+                javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        try {
+            // Create OrderDetail with ticket information
+            OrderDetail orderDetail = new OrderDetail(vipCounter, earlyBirdCounter, standardCounter);
+            orderDetail.setVisible(true);
+            this.dispose(); // Close EventDetails
+        } catch (Exception e) {
+            // If OrderDetail constructor doesn't accept parameters, try default constructor
+            try {
+                OrderDetail orderDetail = new OrderDetail(vipCounter, earlyBirdCounter, standardCounter);
+                // If OrderDetail has setter methods, use them here
+                // orderDetail.setTicketCounts(vipCounter, earlyBirdCounter, standardCounter);
+                orderDetail.setVisible(true);
+                this.dispose();
+            } catch (Exception ex) {
+                javax.swing.JOptionPane.showMessageDialog(this, 
+                    "Error opening Order Details: " + ex.getMessage(), 
+                    "Error", 
+                    javax.swing.JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
+        }
+    }
+    
+    public EventDetails(Event event){
+        initComponents();
+        setLocationRelativeTo(null);
+         
+        eventTitle.setText(event.getTitle());
+        jLabel2.setText(event.getDate());
+        
+        // Initialize subtotal
+        updateSubtotal();
     }
 
     /**
@@ -25,21 +76,442 @@ public class EventDetails extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        MainPanel = new javax.swing.JPanel();
+        topPanel = new javax.swing.JPanel();
+        eventPanel = new javax.swing.JPanel();
+        eventImage = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        eventTitle = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        vipTicketPanel = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        addVIP = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        decreaseVIP = new javax.swing.JLabel();
+        earlyBirdTicketPanel = new javax.swing.JPanel();
+        jLabel19 = new javax.swing.JLabel();
+        addEarlyBird = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        decreaseEarlyBird = new javax.swing.JLabel();
+        standardTicketPanel = new javax.swing.JPanel();
+        jLabel22 = new javax.swing.JLabel();
+        addStandard = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        decreaseStandard = new javax.swing.JLabel();
+        vipNumber = new javax.swing.JLabel();
+        earlyBirdNumber = new javax.swing.JLabel();
+        standardNumber = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        subtotal = new javax.swing.JLabel();
+        BeliTiketButton = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        MainPanel.setPreferredSize(new java.awt.Dimension(1200, 800));
+
+        topPanel.setBackground(new java.awt.Color(0, 87, 166));
+
+        javax.swing.GroupLayout topPanelLayout = new javax.swing.GroupLayout(topPanel);
+        topPanel.setLayout(topPanelLayout);
+        topPanelLayout.setHorizontalGroup(
+            topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        topPanelLayout.setVerticalGroup(
+            topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        eventImage.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        eventImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/coldplay-jakarta-concert (1).jpg"))); // NOI18N
+
+        jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+
+        eventTitle.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        eventTitle.setText("ColdPlay Music of the SPHERES");
+
+        jLabel2.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/calendar.png"))); // NOI18N
+        jLabel2.setText("17 August 1945");
+
+        jLabel1.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/time.png"))); // NOI18N
+        jLabel1.setText("12:00 - 17:00");
+
+        jLabel3.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/location.png"))); // NOI18N
+        jLabel3.setText("London Street");
+
+        jLabel4.setFont(new java.awt.Font("SansSerif", 1, 13)); // NOI18N
+        jLabel4.setText("Description");
+
+        jLabel5.setText("Amazing Coldplay Music in London Street");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(eventTitle)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addGap(0, 183, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(eventTitle)
+                .addGap(40, 40, 40)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addGap(26, 26, 26)
+                .addComponent(jLabel4)
+                .addGap(35, 35, 35)
+                .addComponent(jLabel5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout eventPanelLayout = new javax.swing.GroupLayout(eventPanel);
+        eventPanel.setLayout(eventPanelLayout);
+        eventPanelLayout.setHorizontalGroup(
+            eventPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(eventPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(eventImage)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        eventPanelLayout.setVerticalGroup(
+            eventPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(eventPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(eventPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(eventImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+
+        vipTicketPanel.setBackground(new java.awt.Color(0, 87, 255));
+        vipTicketPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 87, 255), 1, true));
+
+        jLabel6.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel6.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("VIP Ticket");
+
+        addVIP.setBackground(new java.awt.Color(0, 0, 0));
+        addVIP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add (2).png"))); // NOI18N
+        addVIP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addVIPMouseClicked(evt);
+            }
+        });
+
+        jLabel18.setText("$100");
+
+        decreaseVIP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/minus.png"))); // NOI18N
+        decreaseVIP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                decreaseVIPMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout vipTicketPanelLayout = new javax.swing.GroupLayout(vipTicketPanel);
+        vipTicketPanel.setLayout(vipTicketPanelLayout);
+        vipTicketPanelLayout.setHorizontalGroup(
+            vipTicketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(vipTicketPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(vipTicketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel18))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(decreaseVIP)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(addVIP)
+                .addGap(15, 15, 15))
+        );
+        vipTicketPanelLayout.setVerticalGroup(
+            vipTicketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(vipTicketPanelLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(vipTicketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(vipTicketPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel18))
+                    .addGroup(vipTicketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(decreaseVIP)
+                        .addComponent(addVIP)))
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+
+        earlyBirdTicketPanel.setBackground(new java.awt.Color(0, 87, 255));
+        earlyBirdTicketPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 87, 255), 1, true));
+
+        jLabel19.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel19.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel19.setText("Early Bird Ticket");
+
+        addEarlyBird.setBackground(new java.awt.Color(0, 0, 0));
+        addEarlyBird.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add (2).png"))); // NOI18N
+        addEarlyBird.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addEarlyBirdMouseClicked(evt);
+            }
+        });
+
+        jLabel21.setText("$50");
+
+        decreaseEarlyBird.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/minus.png"))); // NOI18N
+        decreaseEarlyBird.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                decreaseEarlyBirdMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout earlyBirdTicketPanelLayout = new javax.swing.GroupLayout(earlyBirdTicketPanel);
+        earlyBirdTicketPanel.setLayout(earlyBirdTicketPanelLayout);
+        earlyBirdTicketPanelLayout.setHorizontalGroup(
+            earlyBirdTicketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(earlyBirdTicketPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(earlyBirdTicketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel19)
+                    .addComponent(jLabel21))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(decreaseEarlyBird)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(addEarlyBird)
+                .addGap(15, 15, 15))
+        );
+        earlyBirdTicketPanelLayout.setVerticalGroup(
+            earlyBirdTicketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(earlyBirdTicketPanelLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(earlyBirdTicketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(decreaseEarlyBird)
+                    .addComponent(addEarlyBird)
+                    .addGroup(earlyBirdTicketPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel19)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel21)))
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+
+        standardTicketPanel.setBackground(new java.awt.Color(0, 87, 255));
+        standardTicketPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 87, 255), 1, true));
+
+        jLabel22.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel22.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel22.setText("Standard Ticket");
+
+        addStandard.setBackground(new java.awt.Color(0, 0, 0));
+        addStandard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add (2).png"))); // NOI18N
+        addStandard.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addStandardMouseClicked(evt);
+            }
+        });
+
+        jLabel24.setText("$70");
+
+        decreaseStandard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/minus.png"))); // NOI18N
+        decreaseStandard.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                decreaseStandardMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout standardTicketPanelLayout = new javax.swing.GroupLayout(standardTicketPanel);
+        standardTicketPanel.setLayout(standardTicketPanelLayout);
+        standardTicketPanelLayout.setHorizontalGroup(
+            standardTicketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(standardTicketPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(standardTicketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel22)
+                    .addComponent(jLabel24))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(decreaseStandard)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(addStandard)
+                .addGap(15, 15, 15))
+        );
+        standardTicketPanelLayout.setVerticalGroup(
+            standardTicketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(standardTicketPanelLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(standardTicketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(decreaseStandard)
+                    .addComponent(addStandard)
+                    .addGroup(standardTicketPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel22)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel24)))
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+
+        vipNumber.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        vipNumber.setText("0");
+
+        earlyBirdNumber.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        earlyBirdNumber.setText("0");
+
+        standardNumber.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        standardNumber.setText("0");
+
+        jLabel7.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
+        jLabel7.setText("Subtotal :");
+
+        subtotal.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
+        subtotal.setText("$0");
+
+        BeliTiketButton.setBackground(new java.awt.Color(0, 87, 166));
+        BeliTiketButton.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        BeliTiketButton.setForeground(new java.awt.Color(255, 255, 255));
+        BeliTiketButton.setText("Beli Tiket");
+        BeliTiketButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BeliTiketButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
+        MainPanel.setLayout(MainPanelLayout);
+        MainPanelLayout.setHorizontalGroup(
+            MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(topPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(MainPanelLayout.createSequentialGroup()
+                .addComponent(eventPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(MainPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(vipTicketPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(earlyBirdTicketPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(standardTicketPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(vipNumber)
+                    .addComponent(earlyBirdNumber)
+                    .addComponent(standardNumber))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(subtotal)
+                    .addComponent(BeliTiketButton))
+                .addGap(50, 50, 50))
+        );
+        MainPanelLayout.setVerticalGroup(
+            MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MainPanelLayout.createSequentialGroup()
+                .addComponent(topPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(eventPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(MainPanelLayout.createSequentialGroup()
+                        .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(vipTicketPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(vipNumber, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(18, 18, 18)
+                        .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(earlyBirdTicketPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(earlyBirdNumber, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(18, 18, 18)
+                        .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(standardTicketPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(standardNumber, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(MainPanelLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(subtotal)
+                        .addGap(18, 18, 18)
+                        .addComponent(BeliTiketButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(50, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void addVIPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addVIPMouseClicked
+        vipCounter++;
+        vipNumber.setText(String.valueOf(vipCounter));
+        updateSubtotal();
+    }//GEN-LAST:event_addVIPMouseClicked
+
+    private void addEarlyBirdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addEarlyBirdMouseClicked
+        earlyBirdCounter++;
+        earlyBirdNumber.setText(String.valueOf(earlyBirdCounter));
+        updateSubtotal();
+    }//GEN-LAST:event_addEarlyBirdMouseClicked
+
+    private void addStandardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addStandardMouseClicked
+        standardCounter++;
+        standardNumber.setText(String.valueOf(standardCounter));
+        updateSubtotal();
+    }//GEN-LAST:event_addStandardMouseClicked
+
+    private void decreaseVIPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_decreaseVIPMouseClicked
+        if (vipCounter > 0) {
+            vipCounter--;
+            vipNumber.setText(String.valueOf(vipCounter));
+            updateSubtotal();
+        }
+    }//GEN-LAST:event_decreaseVIPMouseClicked
+
+    private void decreaseEarlyBirdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_decreaseEarlyBirdMouseClicked
+        if (earlyBirdCounter > 0) {
+            earlyBirdCounter--;
+            earlyBirdNumber.setText(String.valueOf(earlyBirdCounter));
+            updateSubtotal();
+        }
+    }//GEN-LAST:event_decreaseEarlyBirdMouseClicked
+
+    private void decreaseStandardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_decreaseStandardMouseClicked
+        if (standardCounter > 0) {
+            standardCounter--;
+            standardNumber.setText(String.valueOf(standardCounter));
+            updateSubtotal();
+        }
+    }//GEN-LAST:event_decreaseStandardMouseClicked
+
+    private void updateSubtotal() {
+        int total = (vipCounter * 100) + (earlyBirdCounter * 50) + (standardCounter * 70);
+        subtotal.setText("$" + total);
+    }
+
 
     /**
      * @param args the command line arguments
@@ -77,5 +549,37 @@ public class EventDetails extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BeliTiketButton;
+    private javax.swing.JPanel MainPanel;
+    private javax.swing.JLabel addEarlyBird;
+    private javax.swing.JLabel addStandard;
+    private javax.swing.JLabel addVIP;
+    private javax.swing.JLabel decreaseEarlyBird;
+    private javax.swing.JLabel decreaseStandard;
+    private javax.swing.JLabel decreaseVIP;
+    private javax.swing.JLabel earlyBirdNumber;
+    private javax.swing.JPanel earlyBirdTicketPanel;
+    private javax.swing.JLabel eventImage;
+    private javax.swing.JPanel eventPanel;
+    private javax.swing.JLabel eventTitle;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel standardNumber;
+    private javax.swing.JPanel standardTicketPanel;
+    private javax.swing.JLabel subtotal;
+    private javax.swing.JPanel topPanel;
+    private javax.swing.JLabel vipNumber;
+    private javax.swing.JPanel vipTicketPanel;
     // End of variables declaration//GEN-END:variables
 }
