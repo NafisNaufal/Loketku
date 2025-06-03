@@ -1,4 +1,3 @@
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -20,20 +19,41 @@ public class EventDetails extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         
-        BeliTiketButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BeliTiketButtonActionPerformed(evt);
-            }
-        });
-        
         // Initialize subtotal
         updateSubtotal();
     }
     
     private void BeliTiketButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        OrderDetail orderDetail = new OrderDetail();
-        orderDetail.setVisible(true);
-        this.dispose(); // tutup EventDetails
+        // Check if at least one ticket is selected
+        if (vipCounter == 0 && earlyBirdCounter == 0 && standardCounter == 0) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "Please select at least one ticket before proceeding!", 
+                "No Tickets Selected", 
+                javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        try {
+            // Create OrderDetail with ticket information
+            OrderDetail orderDetail = new OrderDetail(vipCounter, earlyBirdCounter, standardCounter);
+            orderDetail.setVisible(true);
+            this.dispose(); // Close EventDetails
+        } catch (Exception e) {
+            // If OrderDetail constructor doesn't accept parameters, try default constructor
+            try {
+                OrderDetail orderDetail = new OrderDetail(vipCounter, earlyBirdCounter, standardCounter);
+                // If OrderDetail has setter methods, use them here
+                // orderDetail.setTicketCounts(vipCounter, earlyBirdCounter, standardCounter);
+                orderDetail.setVisible(true);
+                this.dispose();
+            } catch (Exception ex) {
+                javax.swing.JOptionPane.showMessageDialog(this, 
+                    "Error opening Order Details: " + ex.getMessage(), 
+                    "Error", 
+                    javax.swing.JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
+        }
     }
     
     public EventDetails(Event event){
@@ -369,6 +389,11 @@ public class EventDetails extends javax.swing.JFrame {
         BeliTiketButton.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         BeliTiketButton.setForeground(new java.awt.Color(255, 255, 255));
         BeliTiketButton.setText("Beli Tiket");
+        BeliTiketButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BeliTiketButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
         MainPanel.setLayout(MainPanelLayout);
