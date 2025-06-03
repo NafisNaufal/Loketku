@@ -3,6 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author nafis
@@ -23,6 +29,21 @@ public class EventDetails extends javax.swing.JFrame {
         updateSubtotal();
     }
     
+    private void insertUser(String name, String email) {
+    Connection conn = DBConnection.connect();
+    if (conn != null) {
+            String sql = "INSERT INTO Users (name, email) VALUES (?, ?)";
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, name);
+                pstmt.setString(2, email);
+                pstmt.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Data inserted successfully!");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }   
+
     private void BeliTiketButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // Check if at least one ticket is selected
         if (vipCounter == 0 && earlyBirdCounter == 0 && standardCounter == 0) {
