@@ -42,20 +42,24 @@ public class EventDetails extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         addVIP = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        decreaseVIP = new javax.swing.JLabel();
         earlyBirdTicketPanel = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         addEarlyBird = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
+        decreaseEarlyBird = new javax.swing.JLabel();
         standardTicketPanel = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         addStandard = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
+        decreaseStandard = new javax.swing.JLabel();
         vipNumber = new javax.swing.JLabel();
         earlyBirdNumber = new javax.swing.JLabel();
         standardNumber = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        subtotal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1200, 800));
 
         MainPanel.setPreferredSize(new java.awt.Dimension(1200, 800));
 
@@ -169,7 +173,14 @@ public class EventDetails extends javax.swing.JFrame {
             }
         });
 
-        jLabel18.setText("$10");
+        jLabel18.setText("$100");
+
+        decreaseVIP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/minus.png"))); // NOI18N
+        decreaseVIP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                decreaseVIPMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout vipTicketPanelLayout = new javax.swing.GroupLayout(vipTicketPanel);
         vipTicketPanel.setLayout(vipTicketPanelLayout);
@@ -181,6 +192,8 @@ public class EventDetails extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(jLabel18))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(decreaseVIP)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(addVIP)
                 .addGap(15, 15, 15))
         );
@@ -189,11 +202,13 @@ public class EventDetails extends javax.swing.JFrame {
             .addGroup(vipTicketPanelLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(vipTicketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(addVIP)
                     .addGroup(vipTicketPanelLayout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel18)))
+                        .addComponent(jLabel18))
+                    .addGroup(vipTicketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(decreaseVIP)
+                        .addComponent(addVIP)))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -213,7 +228,14 @@ public class EventDetails extends javax.swing.JFrame {
             }
         });
 
-        jLabel21.setText("$10");
+        jLabel21.setText("$50");
+
+        decreaseEarlyBird.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/minus.png"))); // NOI18N
+        decreaseEarlyBird.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                decreaseEarlyBirdMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout earlyBirdTicketPanelLayout = new javax.swing.GroupLayout(earlyBirdTicketPanel);
         earlyBirdTicketPanel.setLayout(earlyBirdTicketPanelLayout);
@@ -224,7 +246,9 @@ public class EventDetails extends javax.swing.JFrame {
                 .addGroup(earlyBirdTicketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel19)
                     .addComponent(jLabel21))
-                .addGap(70, 70, 70)
+                .addGap(26, 26, 26)
+                .addComponent(decreaseEarlyBird)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(addEarlyBird)
                 .addGap(15, 15, 15))
         );
@@ -233,6 +257,7 @@ public class EventDetails extends javax.swing.JFrame {
             .addGroup(earlyBirdTicketPanelLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(earlyBirdTicketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(decreaseEarlyBird)
                     .addComponent(addEarlyBird)
                     .addGroup(earlyBirdTicketPanelLayout.createSequentialGroup()
                         .addComponent(jLabel19)
@@ -257,7 +282,14 @@ public class EventDetails extends javax.swing.JFrame {
             }
         });
 
-        jLabel24.setText("$10");
+        jLabel24.setText("$70");
+
+        decreaseStandard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/minus.png"))); // NOI18N
+        decreaseStandard.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                decreaseStandardMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout standardTicketPanelLayout = new javax.swing.GroupLayout(standardTicketPanel);
         standardTicketPanel.setLayout(standardTicketPanelLayout);
@@ -268,7 +300,9 @@ public class EventDetails extends javax.swing.JFrame {
                 .addGroup(standardTicketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel22)
                     .addComponent(jLabel24))
-                .addGap(70, 70, 70)
+                .addGap(26, 26, 26)
+                .addComponent(decreaseStandard)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(addStandard)
                 .addGap(15, 15, 15))
         );
@@ -277,6 +311,7 @@ public class EventDetails extends javax.swing.JFrame {
             .addGroup(standardTicketPanelLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(standardTicketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(decreaseStandard)
                     .addComponent(addStandard)
                     .addGroup(standardTicketPanelLayout.createSequentialGroup()
                         .addComponent(jLabel22)
@@ -294,6 +329,12 @@ public class EventDetails extends javax.swing.JFrame {
         standardNumber.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         standardNumber.setText("0");
 
+        jLabel7.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
+        jLabel7.setText("Subtotal :");
+
+        subtotal.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
+        subtotal.setText("jLabel8");
+
         javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
         MainPanel.setLayout(MainPanelLayout);
         MainPanelLayout.setHorizontalGroup(
@@ -306,13 +347,19 @@ public class EventDetails extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(earlyBirdTicketPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(standardTicketPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(vipTicketPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(vipTicketPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(standardTicketPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(vipNumber)
                     .addComponent(earlyBirdNumber)
                     .addComponent(standardNumber))
+                .addGap(276, 276, 276)
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(MainPanelLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(subtotal))
+                    .addComponent(jLabel7))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         MainPanelLayout.setVerticalGroup(
@@ -326,24 +373,27 @@ public class EventDetails extends javax.swing.JFrame {
                         .addGap(9, 9, 9)
                         .addComponent(vipTicketPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(MainPanelLayout.createSequentialGroup()
-                        .addGap(44, 44, 44)
+                        .addGap(45, 45, 45)
                         .addComponent(vipNumber)))
                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(MainPanelLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(earlyBirdTicketPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(MainPanelLayout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addComponent(jLabel7)
+                                .addGap(11, 11, 11)
+                                .addComponent(subtotal))
+                            .addGroup(MainPanelLayout.createSequentialGroup()
+                                .addGap(43, 43, 43)
+                                .addComponent(earlyBirdNumber)))
+                        .addGap(29, 29, 29)
+                        .addComponent(standardNumber))
                     .addGroup(MainPanelLayout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(earlyBirdNumber)))
-                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(MainPanelLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(standardTicketPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(37, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(standardNumber)
-                        .addGap(70, 70, 70))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(earlyBirdTicketPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(standardTicketPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -357,7 +407,7 @@ public class EventDetails extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+            );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -365,17 +415,50 @@ public class EventDetails extends javax.swing.JFrame {
     private void addVIPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addVIPMouseClicked
         vipCounter++;
         vipNumber.setText(String.valueOf(vipCounter));
+        updateSubtotal();
     }//GEN-LAST:event_addVIPMouseClicked
 
     private void addEarlyBirdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addEarlyBirdMouseClicked
         earlyBirdCounter++;
         earlyBirdNumber.setText(String.valueOf(earlyBirdCounter));
+        updateSubtotal();
     }//GEN-LAST:event_addEarlyBirdMouseClicked
 
     private void addStandardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addStandardMouseClicked
         standardCounter++;
         standardNumber.setText(String.valueOf(standardCounter));
+        updateSubtotal();
     }//GEN-LAST:event_addStandardMouseClicked
+
+    private void decreaseVIPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_decreaseVIPMouseClicked
+        if (vipCounter > 0) {
+            vipCounter--;
+            vipNumber.setText(String.valueOf(vipCounter));
+            updateSubtotal();
+        }
+    }//GEN-LAST:event_decreaseVIPMouseClicked
+
+    private void decreaseEarlyBirdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_decreaseEarlyBirdMouseClicked
+        if (earlyBirdCounter > 0) {
+            earlyBirdCounter--;
+            earlyBirdNumber.setText(String.valueOf(earlyBirdCounter));
+            updateSubtotal();
+        }
+    }//GEN-LAST:event_decreaseEarlyBirdMouseClicked
+
+    private void decreaseStandardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_decreaseStandardMouseClicked
+        if (standardCounter > 0) {
+            standardCounter--;
+            standardNumber.setText(String.valueOf(standardCounter));
+            updateSubtotal();
+        }
+    }//GEN-LAST:event_decreaseStandardMouseClicked
+
+    private void updateSubtotal() {
+        int total = (vipCounter * 100) + (earlyBirdCounter * 50) + (standardCounter * 70);
+        subtotal.setText("$" + total);
+    }
+
 
     /**
      * @param args the command line arguments
@@ -417,16 +500,15 @@ public class EventDetails extends javax.swing.JFrame {
     private javax.swing.JLabel addEarlyBird;
     private javax.swing.JLabel addStandard;
     private javax.swing.JLabel addVIP;
+    private javax.swing.JLabel decreaseEarlyBird;
+    private javax.swing.JLabel decreaseStandard;
+    private javax.swing.JLabel decreaseVIP;
     private javax.swing.JLabel earlyBirdNumber;
     private javax.swing.JPanel earlyBirdTicketPanel;
     private javax.swing.JLabel eventImage;
     private javax.swing.JPanel eventPanel;
     private javax.swing.JLabel eventTitle;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -438,15 +520,12 @@ public class EventDetails extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel standardNumber;
     private javax.swing.JPanel standardTicketPanel;
+    private javax.swing.JLabel subtotal;
     private javax.swing.JPanel topPanel;
     private javax.swing.JLabel vipNumber;
     private javax.swing.JPanel vipTicketPanel;
-    private javax.swing.JPanel vipTicketPanel1;
-    private javax.swing.JPanel vipTicketPanel2;
-    private javax.swing.JPanel vipTicketPanel3;
     // End of variables declaration//GEN-END:variables
 }
