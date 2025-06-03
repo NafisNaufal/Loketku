@@ -4,18 +4,20 @@
  */
 package loketku2;
 
-import java.sql.Connection;
 import database.Koneksi;
+    import java.sql.Connection;
 
-
+/**
+ *
+ * @author LENOVO IDP GAMING
+ */
 public class Loketku2 {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-    Connection conn =Koneksi.getKoneksi();
-    }
+Connection conn =Koneksi.getKoneksi();
+        }
     
 }
-

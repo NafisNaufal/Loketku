@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.sql.*;
 import database.Koneksi;
 import org.mindrot.jbcrypt.BCrypt;
+//import ui.HomePage;
 
 
 public class Login extends javax.swing.JFrame {
@@ -164,6 +165,8 @@ public class Login extends javax.swing.JFrame {
         if (validateCredentials(email, password)) {
             JOptionPane.showMessageDialog(this, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
             this.dispose(); 
+             //new HomePage().setVisible(true);
+
         } else {
             JOptionPane.showMessageDialog(this, "Invalid email or password", "Error", JOptionPane.ERROR_MESSAGE);
         }
