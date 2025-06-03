@@ -33,6 +33,22 @@ class Event {
         this.price = price;
         this.imagePath = imagePath;
     }
+    
+    public String getTitle(){
+        return title;
+    }
+    
+    public String getDate(){
+        return date;
+    }
+    
+    public String getPrice(){
+        return price;
+    }
+    
+    public String getImagePath(){
+        return imagePath;
+    }
 }
 
 class WrapLayout extends FlowLayout {
@@ -146,6 +162,13 @@ public class HomePage extends javax.swing.JFrame {
         eventPanel.add(judul);
         eventPanel.add(tanggal);
         eventPanel.add(harga);
+        
+        eventPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        eventPanel.addMouseListener(new java.awt.event.MouseAdapter(){
+            public void mouseClicked(java.awt.event.MouseEvent evt){
+                new EventDetails(event).setVisible(true);
+            }
+        });
 
         ListEventPanel1.add(eventPanel);
     }
@@ -181,6 +204,7 @@ public class HomePage extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(1200, 800));
 
         LayarAtasPanel1.setBackground(new java.awt.Color(0, 87, 166));
+        LayarAtasPanel1.setPreferredSize(new java.awt.Dimension(1200, 120));
 
         DaftarButton1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         DaftarButton1.setText("Sign up");
