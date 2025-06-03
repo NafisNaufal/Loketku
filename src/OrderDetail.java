@@ -12,7 +12,7 @@ public class OrderDetail extends javax.swing.JFrame {
     /**
      * Creates new form OrderDetail
      */
-    public OrderDetail() {
+    public OrderDetail(int vipCounter, int earlyBirdCounter, int standardCounter) {
         initComponents();
         setLocationRelativeTo(null);
          BayarTiketButton.addActionListener(new java.awt.event.ActionListener() {
