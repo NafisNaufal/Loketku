@@ -1,3 +1,9 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.ResultSet;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -8,12 +14,27 @@
  * @author joshu
  */
 public class Ticket extends javax.swing.JFrame {
-
+    private static Connection conn;
+    private static Statement stmt;
     /**
      * Creates new form Ticket
      */
     public Ticket() {
         initComponents();
+        connectToDatabase();
+    }
+    
+    private void connectToDatabase(){
+        try {
+            String DB = "jdbc:sqlserver://localhost:1433;databaseName=Loketku;encrypt=true;trustServerCertificate=true";
+            String user = "sa";
+            String pass = "Purba_123";
+            conn = DriverManager.getConnection(DB, user, pass);
+            stmt = conn.createStatement();
+            System.out.println("Berhasil terkoneksi dengan database Loketku");
+        } catch (SQLException e) {
+            System.out.println("Gagal terkoneksi dengan database: " + e.getMessage());
+        }
     }
 
     /**
