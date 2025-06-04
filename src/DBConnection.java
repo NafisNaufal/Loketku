@@ -18,7 +18,7 @@ public class DBConnection {
         Connection conn = null;
 
         // Replace with your details
-        String url = "jdbc:sqlserver://localhost:1433;databaseName=Loketku";
+        String url = "jdbc:sqlserver://localhost:1433;databaseName=Loketku;encrypt=true;trustServerCertificate=true";
         String user = "SA";
         String password = "Password123";
 
