@@ -166,7 +166,7 @@ public class HomePage extends javax.swing.JFrame {
         eventPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         eventPanel.addMouseListener(new java.awt.event.MouseAdapter(){
             public void mouseClicked(java.awt.event.MouseEvent evt){
-                new EventDetails(event).setVisible(true);
+                new EventDetails(1).setVisible(true);
                 HomePage.this.dispose();
             }
         });
