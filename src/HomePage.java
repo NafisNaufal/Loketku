@@ -1,4 +1,5 @@
 
+import database.Koneksi;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -10,7 +11,14 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.JScrollPane;
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -110,72 +118,167 @@ class WrapLayout extends FlowLayout {
 }
 
 public class HomePage extends javax.swing.JFrame {
+    private List<Event> hardcodedEvents;
+private boolean isAdmin;
+    private String loggedInUsername;
+    
+    private void checkIfUserIsAdmin(String username) {
+        String sql = "SELECT is_admin FROM USER_TABLE WHERE username = ?";
 
+        try (Connection conn = Koneksi.getKoneksi();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, username);  
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    isAdmin = rs.getBoolean("is_admin");  
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error checking user role: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+  public void addEvent(String eventName, String eventDate, String eventPrice, String imagePath) {
+        Event newEvent = new Event(eventName, eventDate, eventPrice, imagePath);
+        hardcodedEvents.add(newEvent); 
+
+        tampilkanEvent();
+    }
     /**
      * Creates new form HomePage
      */
-    public HomePage() {
+    public HomePage(String username, boolean isAdmin) {
         initComponents();
+         this.loggedInUsername = username;
+        this.isAdmin = isAdmin;
+        if (isAdmin) {
+            AddEventButton1.setVisible(true);  // Show AddEvent button if user is admin
+        } else {
+            AddEventButton1.setVisible(false);  // Hide AddEvent button if not admin
+        }
+        DaftarButton1.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            DaftarButton1ActionPerformed(evt);
+        }
+    });
+
+    MasukButton1.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            MasukButton1ActionPerformed(evt);
+        }
+    });
+    
+    AddEventButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if (isAdmin) {
+                    new AddEvent(username, isAdmin).setVisible(true);  // Show AddEvent form if admin
+                    HomePage.this.dispose();  // Close the HomePage window
+                } else {
+                    JOptionPane.showMessageDialog(HomePage.this, "You must be an admin to add events.", "Access Denied", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+ hardcodedEvents = new ArrayList<>();
+        hardcodedEvents.add(new Event("Intimate Concert J-ROCKS", "2025-06-08", "Rp361.250", "/images/Intimate Concert 'RINDU SELALU' bersama J-ROCKS (1).jpg"));
+        hardcodedEvents.add(new Event("ColdPlay Music of the SPHERS", "2025-07-25", "Rp576.540", "/images/coldplay-jakarta-concert.jpg"));
+        hardcodedEvents.add(new Event("Intimate Concert J-ROCKS", "2025-06-08", "Rp361.250", "/images/Intimate Concert 'RINDU SELALU' bersama J-ROCKS (1).jpg"));
+        hardcodedEvents.add(new Event("ColdPlay Music of the SPHERS", "2025-07-25", "Rp576.540", "/images/coldplay-jakarta-concert.jpg"));
+        hardcodedEvents.add(new Event("Intimate Concert J-ROCKS", "22025-06-08", "Rp361.250", "/images/Intimate Concert 'RINDU SELALU' bersama J-ROCKS (1).jpg"));
+        hardcodedEvents.add(new Event("ColdPlay Music of the SPHERS", "2025-07-25", "Rp576.540", "/images/coldplay-jakarta-concert.jpg"));
         tampilkanEvent();
     }
     
-    private void tampilkanEvent(){
-    Event[] events = {
-      new Event("Intimate Concert J-ROCKS", "28 June 2025", "Rp361.250", "/images/Intimate Concert 'RINDU SELALU' bersama J-ROCKS (1).jpg"),
-      new Event("ColdPlay Music of the SPHERS", "15 Agustus 2025", "Rp576.540", "C:\\Users\\joshu\\OneDrive\\Documents\\GitHub\\Loketku\\src\\images\\coldplay-jakarta-concert.jpg"),
-      new Event("Intimate Concert J-ROCKS", "28 June 2025", "Rp361.250", "/images/Intimate Concert 'RINDU SELALU' bersama J-ROCKS (1).jpg"),
-      new Event("ColdPlay Music of the SPHERS", "15 Agustus 2025", "Rp576.540", "C:\\Users\\joshu\\OneDrive\\Documents\\GitHub\\Loketku\\src\\images\\coldplay-jakarta-concert.jpg"),
-      new Event("Intimate Concert J-ROCKS", "28 June 2025", "Rp361.250", "/images/Intimate Concert 'RINDU SELALU' bersama J-ROCKS (1).jpg"),
-      new Event("ColdPlay Music of the SPHERS", "15 Agustus 2025", "Rp576.540", "C:\\Users\\joshu\\OneDrive\\Documents\\GitHub\\Loketku\\src\\images\\coldplay-jakarta-concert.jpg")
-    };
-    
-    ListEventPanel1.removeAll();
-    ListEventPanel1.setLayout(new WrapLayout(FlowLayout.LEFT, 20, 20));  // // <-- Perbaikan: gunakan ListEventPanel1, bukan ListEventPane1
+     private void tampilkanEvent() {
+        List<Event> events = new ArrayList<>(hardcodedEvents);  
 
-    for(Event event : events){
-        JPanel eventPanel = new JPanel();
-        eventPanel.setLayout(new BoxLayout(eventPanel, BoxLayout.Y_AXIS));
-        eventPanel.setBackground(Color.WHITE);
-        eventPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-        eventPanel.setPreferredSize(new Dimension(250, 300));
+        List<Event> newEvents = getEventsFromDatabase();
+        events.addAll(newEvents); 
 
-        JLabel gambar;
-        if(event.imagePath.startsWith("/")) {
-            // load dari resource classpath
-            java.net.URL imgURL = getClass().getResource(event.imagePath);
-            if(imgURL != null){
-                gambar = new JLabel(new javax.swing.ImageIcon(imgURL));
+        ListEventPanel1.removeAll();
+        ListEventPanel1.setLayout(new WrapLayout(FlowLayout.LEFT, 20, 20));
+
+        for (Event event : events) {
+            JPanel eventPanel = new JPanel();
+            eventPanel.setLayout(new BoxLayout(eventPanel, BoxLayout.Y_AXIS));
+            eventPanel.setBackground(Color.WHITE);
+            eventPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+            eventPanel.setPreferredSize(new Dimension(250, 300));
+
+            JLabel gambar;
+            if (event.getImagePath().startsWith("/")) {
+                java.net.URL imgURL = getClass().getResource(event.getImagePath());
+                if (imgURL != null) {
+                    gambar = new JLabel(new javax.swing.ImageIcon(imgURL));
+                } else {
+                    gambar = new JLabel("Image not found");
+                }
             } else {
-                gambar = new JLabel("Image not found");
+                gambar = new JLabel(new javax.swing.ImageIcon(event.getImagePath()));
             }
-        } else {
-            // load dari path absolut sistem file
-            gambar = new JLabel(new javax.swing.ImageIcon(event.imagePath));
+
+            JLabel judul = new JLabel(event.getTitle());
+            JLabel tanggal = new JLabel(event.getDate());
+            tanggal.setForeground(new java.awt.Color(153, 153, 153));
+            JLabel harga = new JLabel(event.getPrice());  
+
+            eventPanel.add(gambar);
+            eventPanel.add(judul);
+            eventPanel.add(tanggal);
+            eventPanel.add(harga);
+
+            eventPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+            eventPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    new EventDetails(event).setVisible(true);
+                    HomePage.this.dispose();
+                }
+            });
+
+            ListEventPanel1.add(eventPanel);
         }
 
-        JLabel judul = new JLabel(event.title);
-        JLabel tanggal = new JLabel(event.date);
-        tanggal.setForeground(new java.awt.Color(153, 153, 153));
-        JLabel harga = new JLabel(event.price);
-
-        eventPanel.add(gambar);
-        eventPanel.add(judul);
-        eventPanel.add(tanggal);
-        eventPanel.add(harga);
-        
-        eventPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        eventPanel.addMouseListener(new java.awt.event.MouseAdapter(){
-            public void mouseClicked(java.awt.event.MouseEvent evt){
-                new EventDetails(event).setVisible(true);
-                HomePage.this.dispose();
-            }
-        });
-
-        ListEventPanel1.add(eventPanel);
+        ListEventPanel1.revalidate();
+        ListEventPanel1.repaint();
     }
 
-    ListEventPanel1.revalidate();
-    ListEventPanel1.repaint();
+ private List<Event> getEventsFromDatabase() {
+    List<Event> eventList = new ArrayList<>();
+    String sql = "SELECT event_name, date, description, location FROM EVENT_TABLE"; // No price column in the DB
+
+    try (Connection conn = Koneksi.getKoneksi();
+         PreparedStatement stmt = conn.prepareStatement(sql);
+         ResultSet rs = stmt.executeQuery()) {
+
+        while (rs.next()) {
+            String title = rs.getString("event_name");
+            String date = rs.getString("date");
+            String imagePath = "/images/common-image.jpg";  
+
+            String price = "";  
+
+            eventList.add(new Event(title, date, price, imagePath));
+        }
+
+    } catch (SQLException e) {
+        System.err.println("SQL error occurred: " + e.getMessage());
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Database error occurred. Check console for details.", "Database Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    return eventList;
+}
+
+
+
+
+
+
+private void MasukButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+    new Login().setVisible(true);
+    this.dispose();  
 }
 
 
@@ -298,41 +401,24 @@ public class HomePage extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+private void DaftarButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+    new SignUp().setVisible(true);
+    this.dispose();  // Close the current HomePage window
+}
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+ // Main method should launch the Login screen
+public static void main(String args[]) {
+    // Launch Login screen first
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            new Login().setVisible(true);  // Show the Login window
         }
-        //</editor-fold>
+    });
+}
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new HomePage().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddEventButton1;

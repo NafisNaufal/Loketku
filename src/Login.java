@@ -1,5 +1,4 @@
-package ui;
-import ui.SignUp;
+
 import database.Koneksi;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +9,6 @@ import javax.swing.*;
 import java.sql.*;
 import database.Koneksi;
 import org.mindrot.jbcrypt.BCrypt;
-//import ui.HomePage;
 
 
 public class Login extends javax.swing.JFrame {
@@ -146,62 +144,88 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public static void main(String args[]) {
-     
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login().setVisible(true);
-            }
-        });
+    // DEBUG hash
+    String hashed = BCrypt.hashpw("123", BCrypt.gensalt());
+    System.out.println("Hash dari '123' adalah: " + hashed);
+
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            new Login().setVisible(true);
+        }
+    });
+}
+
+    
+  private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {                                              
+    String email = jEmail.getText();
+    String password = new String(jPasswordField1.getPassword());
+
+    if (email.isEmpty() || password.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please enter both email and password", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
     }
-    private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        String email = jEmail.getText();
-        String password = new String(jPasswordField1.getPassword());
 
-        if (email.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter both email and password", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+    if (validateCredentials(email, password)) {
+        JOptionPane.showMessageDialog(this, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        this.dispose(); 
 
-        if (validateCredentials(email, password)) {
-            JOptionPane.showMessageDialog(this, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
-            this.dispose(); 
-             //new HomePage().setVisible(true);
 
-        } else {
-            JOptionPane.showMessageDialog(this, "Invalid email or password", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }                                          
+    } else {
+        JOptionPane.showMessageDialog(this, "Invalid email or password", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
 
 private void jEmailActionPerformed(java.awt.event.ActionEvent evt) {                                       
     jPasswordField1.requestFocus();
 }
 
-  private boolean validateCredentials(String email, String password) {
-     boolean isValid = false;
-     Connection conn = Koneksi.getKoneksi();
+private boolean validateCredentials(String email, String password) {
+    boolean isValid = false;
+    boolean isAdmin = false;
+    Connection conn = Koneksi.getKoneksi();
 
-     try {
-         String sql = "SELECT * FROM USER_TABLE WHERE email = ?";
-         PreparedStatement stmt = conn.prepareStatement(sql);
-         stmt.setString(1, email);
+    try {
+        String sql = "SELECT * FROM USER_TABLE WHERE email = ?";  
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1, email);  
 
-         ResultSet rs = stmt.executeQuery();
+        ResultSet rs = stmt.executeQuery();
 
-         if (rs.next()) {
-             String storedPassword = rs.getString("password");
-             if (BCrypt.checkpw(password, storedPassword)) {
-                 isValid = true; 
-             }
-         }
+        if (rs.next()) {
+            String storedPassword = rs.getString("password");  
+            isAdmin = rs.getBoolean("is_admin");
 
-         rs.close();
-         stmt.close();
-     } catch (SQLException e) {
-         e.printStackTrace();
-     }
+            System.out.println("Entered Password: " + password);
+            System.out.println("Stored Hashed Password: " + storedPassword);
 
-     return isValid;
+            if (BCrypt.checkpw(password, storedPassword)) {
+                isValid = true;  
+                System.out.println("Password match successful.");
+            } else {
+                System.out.println("Password does not match.");
+            }
+        } else {
+            System.out.println("Email not found.");
+        }
+
+        rs.close();
+        stmt.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    if (isValid) {
+        HomePage homePage = new HomePage(email, isAdmin);  // Pass username and isAdmin flag
+        homePage.setVisible(true);  
+        this.dispose();  
+    }
+
+    return isValid;
 }
+
+
+
+
 
 
     private void jButtonSignUpActionPerformed(java.awt.event.ActionEvent evt) {                                              

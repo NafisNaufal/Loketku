@@ -1,4 +1,4 @@
-package ui;
+
 
 import javax.swing.JOptionPane;
 import java.sql.Connection;
@@ -249,14 +249,14 @@ public class SignUp extends javax.swing.JFrame {
     Connection conn = Koneksi.getKoneksi();
     try {
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-        
+
         String sql = "INSERT INTO USER_TABLE (email, username, full_name, phone_number, password, is_admin) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, email);
         stmt.setString(2, username);
         stmt.setString(3, fullName);
         stmt.setString(4, phoneNumber);
-        stmt.setString(5, hashedPassword); 
+        stmt.setString(5, hashedPassword);
         stmt.setBoolean(6, isAdmin);
 
         int rowsInserted = stmt.executeUpdate();
@@ -275,6 +275,8 @@ public class SignUp extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "An error occurred while connecting to the database.", "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
+
+
 
     private void jPhoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPhoneNumberActionPerformed
      

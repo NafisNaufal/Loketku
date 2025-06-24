@@ -12,15 +12,22 @@ public class OrderDetail extends javax.swing.JFrame {
     /**
      * Creates new form OrderDetail
      */
-    public OrderDetail(int vipCounter, int earlyBirdCounter, int standardCounter) {
-        initComponents();
-        setLocationRelativeTo(null);
-         BayarTiketButton.addActionListener(new java.awt.event.ActionListener() {
+public OrderDetail(int vipCounter, int earlyBirdCounter, int standardCounter) {
+    initComponents();
+    setLocationRelativeTo(null);
+    // Do something with the parameters
+    System.out.println("VIP Tickets: " + vipCounter);
+    System.out.println("Early Bird Tickets: " + earlyBirdCounter);
+    System.out.println("Standard Tickets: " + standardCounter);
+    BayarTiketButton.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             BayarTiketButtonActionPerformed(evt);
         }
     });
-    }
+}
+
+    
+
     
     private void BayarTiketButtonActionPerformed(java.awt.event.ActionEvent evt) {
         Ticket ticket = new Ticket();
@@ -416,7 +423,7 @@ public class OrderDetail extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new OrderDetail().setVisible(true);
+                new OrderDetail(1,2,3).setVisible(true);
             }
         });
     }
