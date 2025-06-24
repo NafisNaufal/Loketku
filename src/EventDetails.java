@@ -3,6 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author nafis
@@ -15,14 +22,31 @@ public class EventDetails extends javax.swing.JFrame {
     /**
      * Creates new form EventDetails
      */
-    public EventDetails() {
+    public EventDetails(int eventId) {
         initComponents();
-        setLocationRelativeTo(null);
-        
-        // Initialize subtotal
         updateSubtotal();
+        showEventDetails(eventId);
     }
     
+    private void showEventDetails(int eventId) {
+    Connection conn = DBConnection.connect();
+    String sql = "SELECT * FROM EVENT_TABLE WHERE event_id = ?";
+    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        stmt.setInt(1, eventId);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            // Populate labels or new form
+            eventTitle.setText(rs.getString("event_name"));
+            lblDate.setText(rs.getDate("date").toString());
+            lblTime.setText(rs.getTime("time").toString());
+            lblLocation.setText(rs.getString("location"));
+            lblDescription.setText(rs.getString("description"));
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
     private void BeliTiketButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // Check if at least one ticket is selected
         if (vipCounter == 0 && earlyBirdCounter == 0 && standardCounter == 0) {
@@ -55,17 +79,6 @@ public class EventDetails extends javax.swing.JFrame {
             }
         }
     }
-    
-    public EventDetails(Event event){
-        initComponents();
-        setLocationRelativeTo(null);
-         
-        eventTitle.setText(event.getTitle());
-        jLabel2.setText(event.getDate());
-        
-        // Initialize subtotal
-        updateSubtotal();
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -82,11 +95,11 @@ public class EventDetails extends javax.swing.JFrame {
         eventImage = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         eventTitle = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lblDate = new javax.swing.JLabel();
+        lblTime = new javax.swing.JLabel();
+        lblLocation = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lblDescription = new javax.swing.JLabel();
         vipTicketPanel = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         addVIP = new javax.swing.JLabel();
@@ -134,22 +147,22 @@ public class EventDetails extends javax.swing.JFrame {
         eventTitle.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         eventTitle.setText("ColdPlay Music of the SPHERES");
 
-        jLabel2.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/calendar.png"))); // NOI18N
-        jLabel2.setText("17 August 1945");
+        lblDate.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        lblDate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/calendar.png"))); // NOI18N
+        lblDate.setText("17 August 1945");
 
-        jLabel1.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/time.png"))); // NOI18N
-        jLabel1.setText("12:00 - 17:00");
+        lblTime.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        lblTime.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/time.png"))); // NOI18N
+        lblTime.setText("12:00 - 17:00");
 
-        jLabel3.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/location.png"))); // NOI18N
-        jLabel3.setText("London Street");
+        lblLocation.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        lblLocation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/location.png"))); // NOI18N
+        lblLocation.setText("London Street");
 
         jLabel4.setFont(new java.awt.Font("SansSerif", 1, 13)); // NOI18N
         jLabel4.setText("Description");
 
-        jLabel5.setText("Amazing Coldplay Music in London Street");
+        lblDescription.setText("Amazing Coldplay Music in London Street");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -158,13 +171,13 @@ public class EventDetails extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblDescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(eventTitle)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3)
+                            .addComponent(lblDate)
+                            .addComponent(lblTime)
+                            .addComponent(lblLocation)
                             .addComponent(jLabel4))
                         .addGap(0, 183, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -175,15 +188,15 @@ public class EventDetails extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(eventTitle)
                 .addGap(40, 40, 40)
-                .addComponent(jLabel2)
+                .addComponent(lblDate)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1)
+                .addComponent(lblTime)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel3)
+                .addComponent(lblLocation)
                 .addGap(26, 26, 26)
                 .addComponent(jLabel4)
                 .addGap(35, 35, 35)
-                .addComponent(jLabel5)
+                .addComponent(lblDescription)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -543,7 +556,7 @@ public class EventDetails extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EventDetails().setVisible(true);
+                new EventDetails(1).setVisible(true);
             }
         });
     }
@@ -562,16 +575,16 @@ public class EventDetails extends javax.swing.JFrame {
     private javax.swing.JLabel eventImage;
     private javax.swing.JPanel eventPanel;
     private javax.swing.JLabel eventTitle;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblTime;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lblDate;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lblLocation;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel lblDescription;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel2;

@@ -240,8 +240,25 @@ private boolean isAdmin;
             ListEventPanel1.add(eventPanel);
         }
 
-        ListEventPanel1.revalidate();
-        ListEventPanel1.repaint();
+        JLabel judul = new JLabel(event.title);
+        JLabel tanggal = new JLabel(event.date);
+        tanggal.setForeground(new java.awt.Color(153, 153, 153));
+        JLabel harga = new JLabel(event.price);
+
+        eventPanel.add(gambar);
+        eventPanel.add(judul);
+        eventPanel.add(tanggal);
+        eventPanel.add(harga);
+        
+        eventPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        eventPanel.addMouseListener(new java.awt.event.MouseAdapter(){
+            public void mouseClicked(java.awt.event.MouseEvent evt){
+                new EventDetails(1).setVisible(true);
+                HomePage.this.dispose();
+            }
+        });
+
+        ListEventPanel1.add(eventPanel);
     }
 
  private List<Event> getEventsFromDatabase() {
